@@ -55,13 +55,21 @@ while (true) {
         break;
     }
     if (action === "add") {
+        try{
         let animal = readlineSync.question("Enter the animal's name: ");
         let fee = Number(readlineSync.question("Enter the adoption fee: "));
         addAnimal(animal, fee);
         console.log(`${animal} added with a fee of $${fee}.`);
+        } catch(err){
+            console.log(`Could not add Animal: ${err.message}`);
+        }
     } else if (action === "fee") {
+        try{
         let animal = readlineSync.question("Enter the animal's name to find its adoption fee: ");
         console.log(`${animal}'s adoption fee is $${getAdoptionFee(animal)}.`);
+        } catch(err){
+            console.log(`Could not look up fee: ${err.message}`);
+        }
     } else {
         console.log("Invalid action. Please choose 'add', 'fee', or 'exit'.");
     }
@@ -74,7 +82,12 @@ Problems to Solve
 
 Invalid Input Errors:
   What happens if the user provides a negative adoption fee or leaves the name blank?
+
+//error is thrown "Invalid animal name or adoption fee" and breaks the program.
+
   What happens if the user tries to find the fee for an animal that hasn’t been added?
+
+//the program throws an error "Animal not found in records!"
 
 Code Flow Problems:
   What happens if the program throws an exception? Does the rest of the code continue running?
